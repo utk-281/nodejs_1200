@@ -18,7 +18,7 @@ const div = (a, b) => {
 // module.exports = sub;
 
 module.exports = {
-  add,
+  add: add,
   sub,
   div,
   mul,
