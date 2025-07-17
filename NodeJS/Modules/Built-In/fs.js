@@ -1,8 +1,10 @@
 //! import the module
-let fs = require("fs");
+// let fs = require("fs");
 // let fs = require("node:fs")
 // "node: " ==> it tells us that the module is built-in
 // console.log(fs);
+
+const { resolve } = require("path");
 
 //& ─── fs operation synchronously ────────────────────────────────────────────────────────────────
 //& ─── CRUD ────────────────────────────────────────────────────────────────
@@ -104,11 +106,88 @@ function makeFolder() {
 //! 1) ============= creating a file ===============
 // method name ==> writeFile()
 // syntax ==> writeFile("path/name", "data", callback)
-console.log(1);
-console.log(2);
-fs.writeFile("./demo.txt", "data", (error) => {
-  if (error) console.log(error);
-  console.log("file created");
+// console.log(1);
+// console.log(2);
+// fs.writeFile("./demo.txt", "something else", (error) => {
+//   if (error) console.log(error);
+//   console.log("file created");
+// });
+// //? this is error first callback, the first parameter is always error.
+// console.log(3);
+//~ if the file is already present at the path, then the data will be over-written
+//~ if the file is not there then new file will be created
+
+//! 2) ============= reading a file ===============
+// method name ==> readFile()
+// format ==> readFile("path", "encoding", callback)
+// console.log(1);
+// console.log(2);
+// fs.readFile("./notes.js", "utf-8", (err, res) => {
+//   if (err) clg(err);
+//   console.log("file reading complete");
+//   console.log(res);
+// });
+// console.log(3);
+
+//! 3) ============= appending a file ===============
+// method name ==> appendFile()
+// format ==> appendFile("path", "data", callback)
+// fs.appendFile("./notes.js", "\n this is a new line", (err) => {
+//   if (err) console.log(err);
+//   console.log("file appended");
+// });
+
+//! 4) ============= deleting a file ===============
+// method name ==> unlink()
+
+//! 5) ============= creating a folder===============
+// method name ==> mkdir()
+
+//! 6) ============= deleting a folder===============
+// method name ==> rmdir()
+
+//! 7) ============= renaming ===============
+// method name ==> rename()
+
+//& ─── fs operation asynchronously (using promises --> then/catch) ────────────────────────────────────────────────────────────────
+// let fs = require("fs/promises");
+let fs = require("fs").promises;
+
+//! 1) ============= creating a file ===============
+// method name ==> readFile()
+// format ==> readFile("path/name", "data").then().catch()
+// let output = fs.writeFile("./app.py", "data");
+// console.log(output);
+// output
+//   .then(() => {
+//     console.log("file created");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+//! 2) ============= reading a file ===============
+// method name ==> writeFile()
+// format ==> readFile("path/name", "encoding").then().catch()
+let data = fs.readFile("./notes.js", "utf-8");
+// console.log(data);
+// data
+//   .then((a) => {
+//     console.log(a);
+//     console.log("file reading complete");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+let p = new Promise((res, rej) => {
+  let a = 20;
+  if (a == 20) resolve("success");
+  else rej("failed");
 });
-//? this is error first callback, the first parameter is always error.
-console.log(3);
+console.log(p);
+p.then((a) => {
+  console.log(a);
+}).catch((err) => {
+  console.log(err);
+});
