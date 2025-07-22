@@ -445,14 +445,35 @@ let fs = require("fs");
 //? in nodeJS we have 4 types of streams -->
 
 //! 1) readable stream --> we can read the data from source in continuous chunks.
-op.on("data", (chunks) => {
-  //& here we are listening on to the events
-  console.log(chunks);
-});
-
 //& method name ==> createReadStream()
-let op = fs.createReadStream("./fs.js", "utf-8"); //& this method creates an event named "data"
+// let op = fs.createReadStream("./fs.js", "utf-8"); //& this method creates an event named "data"
+// op.on("data", (chunks) => {
+//   //& here we are listening on to the events
+//   console.log(chunks);
+// });
 
-//! 2) writable stream
-//! 3) duplex stream
-//! 4) transform stream
+//! 2) writable stream  --> we can write the data at source in continuous chunks
+//& method name ==> createWriteStream()
+// let op = fs.createWriteStream("./a.txt");
+// op.write("this is updated data 2", () => {
+//   console.log("data has been written");
+// });
+
+//! 3) duplex stream --> in this, we can read and write simultaneously (at the same time).
+// let readContents = fs.createReadStream("./fs.js"); // source
+// let writeFile = fs.createWriteStream("./a.txt"); // destination
+//& pipe() ==> it connects source and destination, which is used to transfer continuous chunks
+// syntax ==> src.pipe(dest)
+// readContents.pipe(writeFile);
+// console.log("file read");
+
+//! 4) transform stream --> it is similar to duplex, data can be modified (compression, encryption)
+
+// contents "fs.js" paste --> "app.txt" inside user deifned folder
+// let fs1 = require("fs");
+// let path1 = require("path");
+// let srcPath = path1.join(__dirname, "fs.js");
+// let destPath = path1.join(__dirname, "..", "UserDefined", "app.txt");
+// let read = fs1.createReadStream(srcPath, "utf-8");
+// let write = fs1.createWriteStream(destPath, "utf-8");
+// read.pipe(write);

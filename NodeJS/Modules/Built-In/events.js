@@ -35,5 +35,5 @@ event.on("new", () => {
   console.log("event 2 called");
 });
 
-// event.emit("new", "abc", "123");
+event.emit("new", "abc", "123");
 event.emit("new");
