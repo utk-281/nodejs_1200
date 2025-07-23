@@ -23,15 +23,15 @@ let path = require("path");
 // console.log(path.basename(__dirname));
 
 //! 3) parse() --> it returns an object of the passed path
-// console.log(path.parse(__filename));
+console.log(path.parse(__filename));
 // console.log(path.parse("./notes.js"));
 // console.log(path.parse(__dirname));
 
 //!  format() --> it converts path object to string
 
 //! join() --> it joins the path
-console.log(path.join("folder1", "folder2"));
-console.log(path.join(__dirname, "fs.js"));
+// console.log(path.join("folder1", "folder2"));
+// console.log(path.join(__dirname, "fs.js"));
 // console.log(path.join(__dirname, "..", "..", "..", "JavaScript", "App.js"));
 
 //? module wrapper ==> nodeJS wraps all the code into a module wrapper internally

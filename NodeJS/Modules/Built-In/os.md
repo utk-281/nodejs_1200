@@ -1,12 +1,12 @@
 # Node.js OS Module - Complete Tutorial for Students
 
-The **OS module** in Node.js provides powerful utilities for interacting with the operating system. This module gives you access to system information like CPU details, memory usage, platform information, and much more[1][2][3].
+The **OS module** in Node.js provides powerful utilities for interacting with the operating system. This module gives you access to system information like CPU details, memory usage, platform information.
 
 ## Getting Started
 
 ### How to Import the OS Module
 
-The OS module is a **built-in core module** in Node.js, so no installation is required[1][2]. You can import it using either method:
+The OS module is a **built-in core module** in Node.js, so no installation is required. You can import it using either method:
 
 **CommonJS (Traditional Method):**
 
@@ -106,7 +106,7 @@ console.log("Available Network Interfaces:", Object.keys(networkInterfaces));
 
 ## Complete Example for Students
 
-Here's a comprehensive example that demonstrates most OS module methods[1][4][2]:
+Here's a comprehensive example that demonstrates most OS module methods
 
 ```javascript
 // Import the OS module
