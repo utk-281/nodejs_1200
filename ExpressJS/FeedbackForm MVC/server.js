@@ -2,6 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const mongodb = require("mongodb");
 
+const myRoutes = require("./routes");
+
 const connectDB = async () => {
   // step 5
   const client = await mongodb.MongoClient.connect("mongodb://localhost:27017");
@@ -13,13 +15,7 @@ const connectDB = async () => {
 const app = express();
 
 app.use(express.urlencoded({ extended: true })); // lib = queryString (false), QS(true) --> it can parse nested structure
-
-//! 1)  home page
-app.get("/", (req, res) => {
-  let data = fs.createReadStream("./index.html", "utf-8");
-  data.pipe(res);
-  // res.send("hi");
-});
+app.use(myRoutes);
 
 //! 2) form page
 app.get("/feedback-form", (req, res) => {
@@ -56,22 +52,6 @@ app.get("/all", async (req, res) => {
   });
 });
 
-// {
-// userName: 'abc',
-// userEmail: 'abc@gmail.con',
-// userPassword: 'gyuaeadjkj'
-// }
-
-/*
-  req = {
-      body:{
-          username:"abc"
-          userPassword:"abc"
-          userEmail:"abc"
-        }
-    }
- */
-
 app.get(/(.*)/, (req, res) => {
   res.send("page not found");
 });
@@ -84,3 +64,6 @@ app.listen(9000, (err) => {
 // nodemon filename
 
 // insomnia ==> https://insomnia.rest/
+
+//! for every routes file, import the routes file in main file
+//! use it in a middleware
