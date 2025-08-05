@@ -6,13 +6,28 @@
 
 //! 1)
 const { Router } = require("express");
-const { displayFormPage } = require("./controller");
+const {
+  displayFormPage,
+  displayHomePage,
+  formSubmit,
+  displayAllFeedbacks,
+  pageNotFound,
+} = require("./controller");
 
 //! 2)
 let router = Router();
 
-//! 1)  home page
-router.get("/", displayFormPage);
+//! a)  home page
+router.get("/", displayHomePage);
+
+//! b) form page
+router.get("/feedback-form", displayFormPage);
+
+router.post("/submit", formSubmit);
+
+router.get("/all", displayAllFeedbacks);
+
+router.get(/(.*)/, pageNotFound);
 
 //! 3)
 module.exports = router;
