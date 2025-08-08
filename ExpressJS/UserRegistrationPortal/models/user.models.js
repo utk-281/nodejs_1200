@@ -11,19 +11,24 @@ let userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      required: true,
     },
     email: {
       type: String,
-      //   unique: true, --> it will not allow us to store duplicate values
-      //   required: true, --> this input is must
-      //   lowercase: true, --> lowercase
-      //   minlength: 4, --> min length of 4 chars.
+      unique: true, //--> it will not allow us to store duplicate values
+      required: true, //--> this input is must
+      lowercase: true, //--> lowercase
+      minlength: 4, //--> min length of 4 chars.
+      trim: true, //--> remove spaces from start and end
     },
     password: {
       type: String,
+      required: true,
+      minlength: 4,
     },
     phoneNo: {
       type: Number,
+      minlength: 10,
     },
   },
   {
