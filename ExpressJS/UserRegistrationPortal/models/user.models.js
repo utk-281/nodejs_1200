@@ -5,6 +5,7 @@
 
 //~ 1)
 const mongoose = require("mongoose");
+const bcryptjs = require("bcryptjs");
 
 //~ 2) creating an object of Schema class
 let userSchema = new mongoose.Schema(
@@ -36,8 +37,20 @@ let userSchema = new mongoose.Schema(
   }
 );
 
+//& pre-hook --> this will work before any new resource is saved in db
+userSchema.pre("save", async function () {
+  console.log("hi");
+  // "save" --> before creating a new resource
+  let salt = await bcryptjs.genSalt(10);
+  // we are generating a salt/random string of 1024 iterations
+  let hashedPassword = await bcryptjs.hash(this.password, salt);
+  // pass the salt and user password in hash method
+  this.password = hashedPassword;
+  // save the hashedPassword in database.
+});
+
 //~ 3) creating a collection using model("collectionName", Schema)
-let userCollection = mongoose.model("User", userSchema); // users (plural+lowercase --> us ers)
+let userCollection = mongoose.model("User", userSchema); // users (plural+lowercase --> users)
 
 //~ 4) export
 module.exports = userCollection;
