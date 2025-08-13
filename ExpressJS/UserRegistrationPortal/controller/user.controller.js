@@ -1,13 +1,22 @@
 const userCollection = require("../models/user.models");
 const expressAsyncHandler = require("express-async-handler");
+const CustomError = require("../utils/CustomError.util");
 
 const addUser = expressAsyncHandler(async (req, res) => {
   console.log(req.body);
   //~ destructured all the data
   let { name, email, password, phoneNo } = req.body;
 
+  // let salt = await bcryptjs.genSalt(10);
+  // let hashedPassword = await bcryptjs.hash(password, salt);
+
   //~ add this to database
-  let newUser = await userCollection.create({ name, email, password, phoneNo });
+  let newUser = await userCollection.create({
+    name,
+    email,
+    password /* : hashedPassword */,
+    phoneNo,
+  });
 
   //~ send a response
   res.status(201).json({
@@ -20,7 +29,9 @@ const addUser = expressAsyncHandler(async (req, res) => {
 const fetchAllUsers = expressAsyncHandler(async (req, res) => {
   let users = await userCollection.find();
 
-  if (users.length === 0) return res.status(404).json({ message: "no users found" });
+  // if (users.length === 0) return res.status(404).json({ message: "no users found" });
+  // if (users.length === 0) throw new Error("no users found", 404);
+  if (users.length === 0) throw new CustomError("no users found", 404);
 
   res.json({ success: true, message: "users fetched", count: users.length, data: users });
 });
@@ -32,7 +43,7 @@ const fetchOneUser = expressAsyncHandler(async (req, res) => {
   console.log(userId); // 6894515e8ee21bc745018343
   let user = await userCollection.findById(userId);
 
-  if (user === null) return res.status(404).json({ message: "no user found" });
+  if (user === null) throw new CustomError("no user found", 404);
   // if(!user)
 
   res.json({

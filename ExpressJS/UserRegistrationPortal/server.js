@@ -26,3 +26,7 @@ app.listen(process.env.PORT, (err) => {
 
 // create workspace --> blank workspace --> give name --> create
 // create collection --> blanks collection --> give name --> add requests
+
+//! we can set scripts in .json file, like "start", "abc", "dev", etc..
+//! "start" is the default script for this we should run the command "npm start"
+//! if we want to run script other than "start", we have to use "npm run scriptName"

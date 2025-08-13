@@ -31,23 +31,3 @@ const error = (err, req, res, next) => {
 };
 
 module.exports = { error };
-
-err = {
-  errors: {
-    email: {
-      name: "ValidatorError",
-      message: "Path `email` is required.",
-      properties: {
-        message: "Path `email` is required.",
-        type: "required",
-        path: "email",
-      },
-      kind: "required",
-      path: "email",
-    },
-  },
-  _message: "User validation failed",
-  statusCode: 500,
-  name: "ValidationError",
-  message: "User validation failed: email: Path `email` is required.",
-};

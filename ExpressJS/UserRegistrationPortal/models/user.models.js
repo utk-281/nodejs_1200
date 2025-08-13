@@ -39,7 +39,6 @@ let userSchema = new mongoose.Schema(
 
 //& pre-hook --> this will work before any new resource is saved in db
 userSchema.pre("save", async function () {
-  console.log("hi");
   // "save" --> before creating a new resource
   let salt = await bcryptjs.genSalt(10);
   // we are generating a salt/random string of 1024 iterations
@@ -47,6 +46,7 @@ userSchema.pre("save", async function () {
   // pass the salt and user password in hash method
   this.password = hashedPassword;
   // save the hashedPassword in database.
+  //! irreversible
 });
 
 //~ 3) creating a collection using model("collectionName", Schema)
