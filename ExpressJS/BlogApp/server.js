@@ -7,6 +7,8 @@ dotenv.config();
 
 import { connectDB } from './config/database.js';
 
+import error from './middlewares/error.middleware.js';
+
 import blogRoutes from './routers/blog.routes.js'; // import blogRoutes
 
 connectDB();
@@ -16,6 +18,8 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/v1/blogs', blogRoutes);
+
+app.use(error);
 
 app.listen(process.env.PORT, (err) => {
   if (err) {
