@@ -22,7 +22,7 @@ const blogSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // created_at, updated_at
+    timestamps: true,
   }
 );
 
