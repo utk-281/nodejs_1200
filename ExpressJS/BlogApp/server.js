@@ -1,5 +1,6 @@
 // npm i express mongoose dotenv bcryptjs jsonwebtoken cookie-parser express-async-handler joi
 
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import express from 'express';
 
@@ -17,6 +18,7 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/v1/blogs', blogRoutes);
 app.use('/api/v1/users', userRoutes);
