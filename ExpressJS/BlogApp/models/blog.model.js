@@ -15,8 +15,11 @@ const blogSchema = new mongoose.Schema(
       minlength: 10,
       maxLength: 1000,
     },
-    // createdBy: {},
-    //TODO:jwt
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     category: {
       type: String,
     },

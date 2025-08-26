@@ -15,7 +15,7 @@ const error = (err, req, res, next) => {
     success: false,
     message: error.message,
     object: err,
-    stack: error.stack,
+    stack: err.stack,
   });
 };
 

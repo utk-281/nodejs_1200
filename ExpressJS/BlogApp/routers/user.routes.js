@@ -11,12 +11,13 @@ import {
   updatePassword,
   updateProfile,
 } from '../controllers/user.controller.js';
+import { authenticate } from '../middlewares/auth.middleware.js';
 
 const router = Router();
 
 router.post('/register', validateRequest(registerUserValidation), registerUser);
 router.post('/login', loginUser);
-router.post('/logout', logoutUser);
+router.post('/logout', authenticate, logoutUser);
 
 router.patch('/edit-profile', updateProfile);
 router.patch('/edit-password', updatePassword);
