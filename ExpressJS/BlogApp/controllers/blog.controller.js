@@ -24,7 +24,13 @@ export const createBlog = expressAsyncHandler(async (req, res, next) => {
     createdBy: userId,
   });
 
-  if (newBlog) await userCollection.findByIdAndUpdate(userId, { $inc: { totalBlogs: 1 } });
+  let blog = { blogId: newBlog._id };
+
+  if (newBlog)
+    await userCollection.findByIdAndUpdate(userId, {
+      $inc: { totalBlogs: 1 },
+      $push: { blogs: blog },
+    });
 
   new ApiResponse(201, true, 'Blog added successfully', newBlog).send(res);
 });
@@ -71,15 +77,17 @@ export const deleteBlog = expressAsyncHandler(async (req, res, next) => {
   let deletedBlog = await blogCollection.findOneAndDelete({
     _id: req.params.id, // matching _id with req.params.id
     createdBy: userId, // matching if same user created the blog who is trying to delete
-  }); //! LOGICAL AND
-
-  // let deletedBlog = await blogCollection.findOneAndDelete({
-  //   $and: [{ _id: req.params.id }, { createdBy: userId }],
-  // }); //! LOGICAL AND
+  });
 
   if (!deletedBlog) return next(new CustomError('No blog found', 404));
 
-  await userCollection.findByIdAndUpdate(userId, { $inc: { totalBlogs: -1 } });
+  if (deletedBlog) {
+    let blog = { blogId: deletedBlog._id };
 
+    await userCollection.findByIdAndUpdate(userId, {
+      $inc: { totalBlogs: -1 },
+      $pullAll: { blogs: [blog] },
+    });
+  }
   new ApiResponse(200, true, 'Blog deleted successfully', deletedBlog).send(res);
 });

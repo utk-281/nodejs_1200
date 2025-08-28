@@ -23,7 +23,15 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    // blogs: [],//TODO:
+    blogs: [
+      {
+        blogId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Blog',
+        },
+        _id: false,
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -44,3 +52,11 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 };
 
 export const userCollection = mongoose.model('User', userSchema);
+
+let user = {
+  userName: 'John Doe',
+  email: 'YKt7V@example.com',
+  password: '123456',
+  totalBlogs: 2,
+  blogs: [{ blogId: '34567' }, { blogId: 546789 }],
+};

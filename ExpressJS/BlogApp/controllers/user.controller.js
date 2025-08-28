@@ -1,3 +1,4 @@
+
 import expressAsyncHandler from 'express-async-handler';
 import { userCollection } from '../models/user.model.js';
 import ApiResponse from '../utils/ApiResponse.util.js';
@@ -7,6 +8,10 @@ import { generateJsonWebToken } from '../utils/jwt.util.js';
 export const registerUser = expressAsyncHandler(async (req, res, next) => {
   const { userName, email, password } = req.body;
   let newUser = await userCollection.create({ userName, email, password });
+
+  // let newUser = new userCollection({ userName, email, password });
+  // await newUser.save();
+
   new ApiResponse(200, true, 'User created successfully', newUser).send(res);
 });
 
@@ -57,11 +62,49 @@ export const updateProfile = expressAsyncHandler(async (req, res, next) => {
   new ApiResponse(200, true, 'Profile updated successfully', updatedProfile).send(res);
 });
 
-export const updatePassword = expressAsyncHandler(async (req, res, next) => {});
+export const updatePassword = expressAsyncHandler(async (req, res, next) => {
+  let user = req.myUser;
+  let { oldPassword, password } = req.body;
 
-export const deleteUser = expressAsyncHandler(async (req, res, next) => {});
+  let isMatch = await user.comparePassword(oldPassword);
+  if (!isMatch) return next(new CustomError('Password did not match', 401));
 
-export const currentProfile = expressAsyncHandler(async (req, res, next) => {});
+  user.password = password; // assign
+  await user.save(); // saving the updated data and invoking the pre hook
+
+  new ApiResponse(200, true, 'Password updated successfully').send(res);
+});
+
+export const deleteUser = expressAsyncHandler(async (req, res, next) => {
+  let userId = req.myUser._id;
+
+  await userCollection.findByIdAndDelete(userId);
+
+  res.clearCookie('token');
+  new ApiResponse(200, true, 'User deleted successfully').send(res);
+});
+
+export const getProfile = expressAsyncHandler(async (req, res, next) => {
+  let user = await userCollection.findById(req.params.id).populate({
+    path: 'blogs.blogId',
+    select: 'title description _id',
+  });
+
+  // let newU = await userCollection.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: 'blogs',
+  //       foreignField: '_id',
+  //       localField: 'blogs.blogId',
+  //       as: 'blogs.blogId',
+  //     },
+  //   },
+  // ]);
+
+  new ApiResponse(200, true, 'Profile fetched successfully', user).send(res);
+});
 
 //! for FE
-export const currentLoggedIn = expressAsyncHandler(async (req, res, next) => {});
+export const currentLoggedIn = expressAsyncHandler(async (req, res, next) => {
+  new ApiResponse(200, true, 'User logged in successfully').send(res);
+});
