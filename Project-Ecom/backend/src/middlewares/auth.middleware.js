@@ -20,7 +20,10 @@ export const authenticate = async (req, res, next) => {
 };
 
 export const authorize = (req, res, next) => {
-  if (req.myUser.role !== "admin")
+  if (req.myUser.role === "admin") {
+    console.log("checking role...");
+    next();
+  } else {
     return next(new CustomError("Only admin can access this resource", 403));
-  next();
+  }
 };

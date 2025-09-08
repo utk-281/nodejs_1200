@@ -8,8 +8,6 @@ import {
   updateAddress,
 } from "../../controllers/shop/address.controller.js";
 
-import { authenticate } from "../../middlewares/auth.middleware.js";
-
 import { validate } from "../../middlewares/validate.middleware.js";
 
 import {
@@ -19,10 +17,10 @@ import {
 
 const router = Router();
 
-router.post("/", authenticate, validate(addAddressValidation), addAddress);
-router.get("/", authenticate, getAddresses);
-router.get("/:id", authenticate, getAddress);
-router.patch("/:id", authenticate, validate(updateAddressValidation), updateAddress);
-router.delete("/:id", authenticate, deleteAddress);
+router.post("/", validate(addAddressValidation), addAddress);
+router.get("/", getAddresses);
+router.get("/:id", getAddress);
+router.patch("/:id", validate(updateAddressValidation), updateAddress);
+router.delete("/:id", deleteAddress);
 
 export default router;
