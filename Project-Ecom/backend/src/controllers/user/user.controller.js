@@ -33,7 +33,7 @@ export const login = expressAsyncHandler(async (req, res, next) => {
 });
 
 export const logout = expressAsyncHandler(async (req, res, next) => {
-  let userId = req.myUser.id;
+  let userId = req.myUser._id;
   res.clearCookie("token");
 
   //! increase tokenVersion to invalidate existing tokens
