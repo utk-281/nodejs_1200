@@ -17,6 +17,7 @@ if (process.argv[2] === "seedAdmin") {
 import error from "./src/middlewares/error.middleware.js";
 
 import { authenticate, authorize } from "./src/middlewares/auth.middleware.js";
+
 import adminProductRoutes from "./src/routes/admin/product.route.js";
 import shopAddressRoutes from "./src/routes/shop/address.route.js";
 import userRoutes from "./src/routes/user/user.route.js";
