@@ -52,3 +52,5 @@ const productSchema = new mongoose.Schema(
 const Product = mongoose.model("Product", productSchema);
 
 export default Product;
+//
+// https://www.amazon.in/s?k=headphones&rh=n%3A976419031%2Cp_123%3A237204&dc&ds=v1%3AOYVWND8fQXpDWb4aqfWu%2BvzGfUc%2FvX%2BhilZNVHfCdyk&crid=313FL6SAMWTEQ&qid=1757575813&rnid=91049095031&sprefix=headphones+%2Caps%2C266&ref=sr_nr_p_123_4

@@ -1,0 +1,222 @@
+[
+  {
+    "image": "https://example.com/product1.jpg",
+    "title": "Mi 11X Pro",
+    "description": "High performance smartphone with AMOLED display",
+    "price": 39999,
+    "salePrice": 37999,
+    "category": "electronics",
+    "brand": "Xiaomi",
+    "totalStock": 50,
+    "averageReview": 4.5
+  },
+  {
+    "image": "https://example.com/product2.jpg",
+    "title": "Samsung Galaxy M32",
+    "description": "Budget-friendly smartphone with Super AMOLED display",
+    "price": 15999,
+    "salePrice": 14999,
+    "category": "electronics",
+    "brand": "Samsung",
+    "totalStock": 40,
+    "averageReview": 4.2
+  },
+  {
+    "image": "https://example.com/product3.jpg",
+    "title": "Apple iPhone 13",
+    "description": "Flagship smartphone with A15 Bionic chip",
+    "price": 79999,
+    "salePrice": 77999,
+    "category": "electronics",
+    "brand": "Apple",
+    "totalStock": 30,
+    "averageReview": 4.8
+  },
+  {
+    "image": "https://example.com/product4.jpg",
+    "title": "boAt Airdopes 441",
+    "description": "True wireless earbuds with great bass",
+    "price": 2499,
+    "salePrice": 1999,
+    "category": "electronics",
+    "brand": "boAt",
+    "totalStock": 100,
+    "averageReview": 4.3
+  },
+  {
+    "image": "https://example.com/product5.jpg",
+    "title": "LG 32 inch Smart TV",
+    "description": "Full HD LED Smart TV with webOS",
+    "price": 17999,
+    "salePrice": 16999,
+    "category": "electronics",
+    "brand": "LG",
+    "totalStock": 20,
+    "averageReview": 4.1
+  },
+  {
+    "image": "https://example.com/product6.jpg",
+    "title": "Nike Air Max 270",
+    "description": "Comfortable running shoes for men",
+    "price": 12000,
+    "salePrice": 10999,
+    "category": "fashion",
+    "brand": "Nike",
+    "totalStock": 35,
+    "averageReview": 4.6
+  },
+  {
+    "image": "https://example.com/product7.jpg",
+    "title": "Puma Casual Sneakers",
+    "description": "Stylish and comfortable sneakers",
+    "price": 5999,
+    "salePrice": 5499,
+    "category": "fashion",
+    "brand": "Puma",
+    "totalStock": 45,
+    "averageReview": 4.2
+  },
+  {
+    "image": "https://example.com/product8.jpg",
+    "title": "Adidas Running Shoes",
+    "description": "Lightweight shoes for daily jogging",
+    "price": 6999,
+    "salePrice": 6499,
+    "category": "fashion",
+    "brand": "Adidas",
+    "totalStock": 50,
+    "averageReview": 4.3
+  },
+  {
+    "image": "https://example.com/product9.jpg",
+    "title": "Levi's Men Jeans",
+    "description": "Slim fit denim jeans for men",
+    "price": 2999,
+    "salePrice": 2699,
+    "category": "fashion",
+    "brand": "Levi's",
+    "totalStock": 60,
+    "averageReview": 4.4
+  },
+  {
+    "image": "https://example.com/product10.jpg",
+    "title": "Reebok Sports T-shirt",
+    "description": "Breathable fabric for workout",
+    "price": 1499,
+    "salePrice": 1299,
+    "category": "fashion",
+    "brand": "Reebok",
+    "totalStock": 70,
+    "averageReview": 4.1
+  },
+  {
+    "image": "https://example.com/product11.jpg",
+    "title": "Lego Star Wars Set",
+    "description": "Creative toy set for kids",
+    "price": 4999,
+    "salePrice": 4499,
+    "category": "toys",
+    "brand": "Lego",
+    "totalStock": 25,
+    "averageReview": 4.7
+  },
+  {
+    "image": "https://example.com/product12.jpg",
+    "title": "Funskool Dollhouse",
+    "description": "Interactive toy set for girls",
+    "price": 3999,
+    "salePrice": 3499,
+    "category": "toys",
+    "brand": "Funskool",
+    "totalStock": 30,
+    "averageReview": 4.5
+  },
+  {
+    "image": "https://example.com/product13.jpg",
+    "title": "Hot Wheels Car Set",
+    "description": "Pack of 10 miniature cars",
+    "price": 1299,
+    "salePrice": 999,
+    "category": "toys",
+    "brand": "Hot Wheels",
+    "totalStock": 50,
+    "averageReview": 4.4
+  },
+  {
+    "image": "https://example.com/product14.jpg",
+    "title": "Fisher-Price Musical Toy",
+    "description": "Educational toy for toddlers",
+    "price": 999,
+    "salePrice": 899,
+    "category": "toys",
+    "brand": "Fisher-Price",
+    "totalStock": 40,
+    "averageReview": 4.3
+  },
+  {
+    "image": "https://example.com/product15.jpg",
+    "title": "Chetan Bhagat Book Set",
+    "description": "Popular novels in English",
+    "price": 999,
+    "salePrice": 899,
+    "category": "books",
+    "brand": "Chetan Bhagat",
+    "totalStock": 100,
+    "averageReview": 4.2
+  },
+  {
+    "image": "https://example.com/product16.jpg",
+    "title": "Harry Potter Box Set",
+    "description": "All 7 books in the series",
+    "price": 3500,
+    "salePrice": 3200,
+    "category": "books",
+    "brand": "Bloomsbury",
+    "totalStock": 50,
+    "averageReview": 4.9
+  },
+  {
+    "image": "https://example.com/product17.jpg",
+    "title": "Oxford English Dictionary",
+    "description": "Comprehensive English dictionary",
+    "price": 1499,
+    "salePrice": 1299,
+    "category": "books",
+    "brand": "Oxford",
+    "totalStock": 80,
+    "averageReview": 4.5
+  },
+  {
+    "image": "https://example.com/product18.jpg",
+    "title": "Sony Headphones WH-1000XM4",
+    "description": "Noise cancelling wireless headphones",
+    "price": 24999,
+    "salePrice": 22999,
+    "category": "electronics",
+    "brand": "Sony",
+    "totalStock": 20,
+    "averageReview": 4.7
+  },
+  {
+    "image": "https://example.com/product19.jpg",
+    "title": "OnePlus Nord 2",
+    "description": "Mid-range smartphone with AMOLED display",
+    "price": 27999,
+    "salePrice": 25999,
+    "category": "electronics",
+    "brand": "OnePlus",
+    "totalStock": 35,
+    "averageReview": 4.4
+  },
+  {
+    "image": "https://example.com/product20.jpg",
+    "title": "Sony Bravia 43 inch TV",
+    "description": "4K UHD Smart LED TV",
+    "price": 41999,
+    "salePrice": 39999,
+    "category": "electronics",
+    "brand": "Sony",
+    "totalStock": 15,
+    "averageReview": 4.6
+  }
+]

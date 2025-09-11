@@ -9,7 +9,7 @@ import {
 import CustomError from "../../utils/CustomError.util.js";
 
 // export const uploadImage = expressAsyncHandler(async (req, res, next) => {
-//   console.log(uploadedResponse);
+//
 //   new ApiResponse(200, "Image uploaded successfully", true, uploadedResponse.secure_url).send(res);
 // });
 
@@ -17,7 +17,7 @@ export const deleteImage = expressAsyncHandler(async (req, res, next) => {
   let { url, productId } = req.body;
   let publicId = getPublicId(url);
   let deletedResponse = await deleteFromCloudinary(publicId);
-  // console.log(deletedResponse);
+  //
   if (deletedResponse.result === "ok") {
     await Product.findByIdAndUpdate(productId, { image: null });
     new ApiResponse(200, "Image deleted successfully").send(res);
@@ -27,14 +27,13 @@ export const deleteImage = expressAsyncHandler(async (req, res, next) => {
 });
 
 export const updateImage = expressAsyncHandler(async (req, res, next) => {
-  console.log(req.body);
   //! get the old image url and productId from req.body
   //! delete the old image from cloudinary
   //! upload the new image to cloudinary
   //! update the product collection with new image url
   //! send response to client
   const { url, productId } = req.body;
-  console.log(typeof url, url);
+
   if (url !== null) {
     let publicId = getPublicId(url);
     await deleteFromCloudinary(publicId);
