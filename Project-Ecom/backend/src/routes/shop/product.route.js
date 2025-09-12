@@ -8,7 +8,7 @@ import {
 const router = Router();
 
 router.get("/all", getProducts);
+router.get("/search", searchProductByKeyword);
 router.get("/:id", getProduct);
-router.get("/keyword", searchProductByKeyword);
 
 export default router;
