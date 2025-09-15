@@ -20,6 +20,7 @@ import { authenticate, authorize } from "./src/middlewares/auth.middleware.js";
 
 import adminProductRoutes from "./src/routes/admin/product.route.js";
 import shopAddressRoutes from "./src/routes/shop/address.route.js";
+import shopCartRoutes from "./src/routes/shop/cart.route.js";
 import shopProductRoutes from "./src/routes/shop/product.route.js";
 import userRoutes from "./src/routes/user/user.route.js";
 
@@ -34,6 +35,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/shop/addresses", authenticate, shopAddressRoutes);
 app.use("/api/admin/products", authenticate, authorize, adminProductRoutes);
 app.use("/api/shop/products", shopProductRoutes);
+app.use("/api/shop/cart", authenticate, shopCartRoutes);
 
 app.use(error);
 
