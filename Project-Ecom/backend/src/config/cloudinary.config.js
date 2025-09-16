@@ -35,3 +35,7 @@ export default v2;
 }
 
 */
+
+//~ step 1> setup configuration
+//~ step 2> create utility functions (upload, delete)
+//~ step 3> use these functions where ever needed (controllers)
