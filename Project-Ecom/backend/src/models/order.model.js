@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const OrderSchema = new Schema(
   {
@@ -38,6 +38,7 @@ const OrderSchema = new Schema(
           required: true,
           min: 1,
         },
+        _id: false,
       },
     ],
     addressInfo: {
@@ -81,4 +82,6 @@ const OrderSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Order", OrderSchema);
+const Order = mongoose.model("Order", OrderSchema);
+
+export default Order;

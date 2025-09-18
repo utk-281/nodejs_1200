@@ -2,6 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import paypal from "../../config/paypal.config.js";
 import Address from "../../models/address.model.js";
 import Cart from "../../models/cart.model.js";
+import Order from "../../models/order.model.js";
 import Product from "../../models/product.model.js";
 import ApiResponse from "../../utils/ApiResponse.util.js";
 import CustomError from "../../utils/CustomError.util.js";
@@ -40,11 +41,73 @@ export const createOrder = expressAsyncHandler(async (req, res, next) => {
       price: product.price,
       salePrice: product.salePrice,
       quantity: item.quantity,
-      id: product._id,
+      productId: product._id,
     });
   }
 
-  new ApiResponse(201, "Order created successfully", true, totalAmount, cartItems).send(res);
+  if (paymentMethod === "Online") {
+    let create_payment_json = {
+      intent: "sale", // "sale",
+      redirect_urls: {
+        cancel_url: "http://localhost:9000/failed",
+        return_url: "http://localhost:9000/success",
+      },
+      transactions: [
+        {
+          item_list: {
+            items: cartItems.map((item) => {
+              return {
+                name: item.title,
+                sku: item._id, // stock keeping unit --> it acts as unique id for paypal
+                price: item.price.toFixed(2),
+                currency: "USD",
+                quantity: item.quantity,
+              };
+            }),
+          },
+          amount: {
+            currency: "USD",
+            total: totalAmount.toFixed(2),
+          },
+          description: "Order Payment",
+        },
+      ],
+      payer: {
+        payment_method: "paypal",
+      },
+    };
+
+    paypal.payment.create(create_payment_json, async (err, payment) => {
+      if (err) return next(new CustomError(err.message, 500));
+
+      let redirectUrlObject = payment.links.find((link) => {
+        return link.rel === "approval_url";
+      });
+
+      let redirectUrl = redirectUrlObject.href;
+
+      let order = await Order.create({
+        userId,
+        cartId,
+        cartItems,
+        addressInfo: addressObject,
+        paymentMethod,
+        totalAmount,
+      });
+      new ApiResponse(201, "Order created successfully", true, redirectUrl, order).send(res);
+    });
+  } else {
+    // cod
+    let order = await Order.create({
+      userId,
+      cartId,
+      cartItems,
+      addressInfo: addressObject,
+      paymentMethod,
+      totalAmount,
+    });
+    new ApiResponse(201, "Order created successfully", order).send(res);
+  }
 });
 
 export const captureOrder = expressAsyncHandler(async (req, res) => {});
