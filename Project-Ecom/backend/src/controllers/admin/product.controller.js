@@ -1,12 +1,13 @@
-import expressAsyncHandler from "express-async-handler";
-import Product from "../../models/product.model.js";
-import ApiResponse from "../../utils/ApiResponse.util.js";
+import expressAsyncHandler from 'express-async-handler';
+import Product from '../../models/product.model.js';
+import Review from '../../models/review.model.js';
+import ApiResponse from '../../utils/ApiResponse.util.js';
 import {
   deleteFromCloudinary,
   getPublicId,
   uploadToCloudinary,
-} from "../../utils/cloudinary.util.js";
-import CustomError from "../../utils/CustomError.util.js";
+} from '../../utils/cloudinary.util.js';
+import CustomError from '../../utils/CustomError.util.js';
 
 // export const uploadImage = expressAsyncHandler(async (req, res, next) => {
 //
@@ -18,11 +19,11 @@ export const deleteImage = expressAsyncHandler(async (req, res, next) => {
   let publicId = getPublicId(url);
   let deletedResponse = await deleteFromCloudinary(publicId);
   //
-  if (deletedResponse.result === "ok") {
+  if (deletedResponse.result === 'ok') {
     await Product.findByIdAndUpdate(productId, { image: null });
-    new ApiResponse(200, "Image deleted successfully").send(res);
+    new ApiResponse(200, 'Image deleted successfully').send(res);
   } else {
-    return next(new CustomError("Image not found", 404));
+    return next(new CustomError('Image not found', 404));
   }
 });
 
@@ -42,11 +43,11 @@ export const updateImage = expressAsyncHandler(async (req, res, next) => {
   // const fileType = req.file.mimetype;
   // const b64 = buffer.toString("base64");
 
-  const dataUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`;
+  const dataUrl = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
   const uploadedResponse = await uploadToCloudinary(dataUrl);
 
   await Product.findByIdAndUpdate(productId, { image: uploadedResponse.secure_url });
-  new ApiResponse(200, "Image updated successfully", true, uploadedResponse.secure_url).send(res);
+  new ApiResponse(200, 'Image updated successfully', true, uploadedResponse.secure_url).send(res);
 });
 
 export const addProduct = expressAsyncHandler(async (req, res, next) => {
@@ -58,7 +59,7 @@ export const addProduct = expressAsyncHandler(async (req, res, next) => {
   //! get the buffer value
   let buffer = req?.file?.buffer;
   //? convert the buffer to base64 string
-  let b64 = buffer.toString("base64");
+  let b64 = buffer.toString('base64');
   //? create the data url
   let url = `data:${fileType};base64,${b64}`;
 
@@ -83,19 +84,22 @@ export const addProduct = expressAsyncHandler(async (req, res, next) => {
     totalStock,
   });
 
-  new ApiResponse(201, "Product added successfully", newProduct).send(res);
+  new ApiResponse(201, 'Product added successfully', newProduct).send(res);
 });
 
 export const getProducts = expressAsyncHandler(async (req, res, next) => {
   let products = await Product.find();
-  if (products.length === 0) return next(new CustomError("No products found", 404));
-  new ApiResponse(200, "Products fetched successfully", true, products).send(res);
+  if (products.length === 0) return next(new CustomError('No products found', 404));
+  new ApiResponse(200, 'Products fetched successfully', true, products).send(res);
 });
 
 export const getProduct = expressAsyncHandler(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
-  if (!product) return next(new CustomError("Product not found", 404));
-  new ApiResponse(200, "Product fetched successfully", true, product).send(res);
+  if (!product) return next(new CustomError('Product not found', 404));
+
+  let reviews = await Review.find({ productId: req.params.id });
+
+  new ApiResponse(200, 'Product fetched successfully', true, product, reviews).send(res);
 });
 
 export const updateProduct = expressAsyncHandler(async (req, res, next) => {
@@ -104,19 +108,19 @@ export const updateProduct = expressAsyncHandler(async (req, res, next) => {
     new: true, // to return the updated document
     runValidators: true, // to verify against the schema
   });
-  if (!product) return next(new CustomError("Product not found", 404));
-  new ApiResponse(200, "Product updated successfully", true, product).send(res);
+  if (!product) return next(new CustomError('Product not found', 404));
+  new ApiResponse(200, 'Product updated successfully', true, product).send(res);
 });
 
 export const deleteProduct = expressAsyncHandler(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
-  if (!product) return next(new CustomError("Product not found", 404));
+  if (!product) return next(new CustomError('Product not found', 404));
   let url = product.image;
-  if (url.includes("res.cloudinary.com")) {
+  if (url.includes('res.cloudinary.com')) {
     let publicId = getPublicId(url);
     await deleteFromCloudinary(publicId);
   }
 
   await Product.findByIdAndDelete(req.params.id);
-  new ApiResponse(200, "Product deleted successfully", true).send(res);
+  new ApiResponse(200, 'Product deleted successfully', true).send(res);
 });

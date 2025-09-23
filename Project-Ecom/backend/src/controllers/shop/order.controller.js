@@ -124,22 +124,22 @@ export const captureOrder = expressAsyncHandler(async (req, res, next) => {
       order.paymentStatus = 'Paid';
       order.payerId = PayerID;
       await order.save();
+
+      for (let item of order.cartItems) {
+        let prod = await Product.findById(item.productId);
+        prod.totalStock -= item.quantity;
+        await prod.save();
+      }
+
+      let cart = await Cart.findOne({ _id: order.cartId });
+      cart.products = [];
+      await cart.save();
     } else {
       order.orderStatus = 'Failed';
       order.paymentStatus = 'Failed';
       order.payerId = PayerID;
       await order.save();
     }
-
-    for (let item of order.cartItems) {
-      let prod = await Product.findById(item.productId);
-      prod.totalStock -= item.quantity;
-      await prod.save();
-    }
-
-    let cart = await Cart.findOne({ _id: order.cartId });
-    cart.products = [];
-    await cart.save();
 
     new ApiResponse(200, 'Order captured successfully', order).send(res);
   });

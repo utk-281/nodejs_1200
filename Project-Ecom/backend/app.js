@@ -24,6 +24,7 @@ import shopAddressRoutes from './src/routes/shop/address.route.js';
 import shopCartRoutes from './src/routes/shop/cart.route.js';
 import shopOrderRoutes from './src/routes/shop/order.route.js';
 import shopProductRoutes from './src/routes/shop/product.route.js';
+import shopReviewRoutes from './src/routes/shop/review.route.js';
 import userRoutes from './src/routes/user/user.route.js';
 
 const app = express();
@@ -40,6 +41,7 @@ app.use('/api/shop/products', shopProductRoutes);
 app.use('/api/shop/cart', authenticate, shopCartRoutes);
 app.use('/api/shop/orders', authenticate, shopOrderRoutes);
 app.use('/api/admin/orders', authenticate, authorize, adminOrderRoutes);
+app.use('/api/shop/reviews', authenticate, shopReviewRoutes);
 
 app.use(error);
 
